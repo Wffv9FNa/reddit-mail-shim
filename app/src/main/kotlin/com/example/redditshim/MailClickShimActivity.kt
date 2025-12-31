@@ -63,8 +63,15 @@ class MailClickShimActivity : ComponentActivity() {
                     Log.d(TAG, "Resolved URL: $resolvedUrl")
                 }
 
+                // Clean up URL before forwarding (remove tracking parameters)
+                val cleanUrl = cleanRedditUrl(resolvedUrl)
+
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "Cleaned URL: $cleanUrl")
+                }
+
                 // Forward to target Reddit client
-                forwardToTarget(resolvedUrl)
+                forwardToTarget(cleanUrl)
 
             } catch (e: Exception) {
                 if (BuildConfig.DEBUG) {
@@ -77,6 +84,29 @@ class MailClickShimActivity : ComponentActivity() {
                 finish()
             }
         }
+    }
+
+    /**
+     * Cleans a Reddit URL by removing tracking parameters.
+     * Keeps only the essential path and common Reddit parameters.
+     */
+    private fun cleanRedditUrl(url: String): String {
+        val uri = Uri.parse(url)
+        val host = uri.host?.lowercase()
+
+        // Only clean Reddit URLs
+        if (host == null || !Config.REDDIT_DOMAINS.contains(host)) {
+            return url
+        }
+
+        // Rebuild URL without query parameters
+        // For Reddit posts/comments, the path contains all necessary info
+        return Uri.Builder()
+            .scheme(uri.scheme ?: "https")
+            .authority(uri.host)
+            .path(uri.path)
+            .build()
+            .toString()
     }
 
     /**
