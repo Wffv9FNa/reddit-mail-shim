@@ -45,6 +45,37 @@ class RedirectResolver(private val client: OkHttpClient) {
                 return@withContext currentUrl
             }
 
+            // Special handling for reddit.app.link - extract $original_url parameter
+            if (host == "reddit.app.link") {
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "Detected reddit.app.link URL: $currentUrl")
+                }
+                // Manually parse query string since getQueryParameter may not handle $ correctly
+                val query = currentUri.query
+                val originalUrl = query?.split("&")?.find { it.startsWith("\$original_url=") || it.startsWith("original_url=") }?.substringAfter("=")?.let { encoded ->
+                    try {
+                        java.net.URLDecoder.decode(encoded, "UTF-8")
+                    } catch (e: Exception) {
+                        if (BuildConfig.DEBUG) {
+                            Log.w(TAG, "Failed to decode original_url: ${e.message}")
+                        }
+                        null
+                    }
+                }
+                if (originalUrl != null) {
+                    if (BuildConfig.DEBUG) {
+                        Log.d(TAG, "Extracted original URL from reddit.app.link: $originalUrl")
+                    }
+                    currentUrl = originalUrl
+                    hops++
+                    continue
+                } else {
+                    if (BuildConfig.DEBUG) {
+                        Log.w(TAG, "No \$original_url parameter found. Query: $query")
+                    }
+                }
+            }
+
             // Try HEAD request first (lightweight)
             val nextUrl = tryResolveRedirect(currentUrl, useHead = true)
 
