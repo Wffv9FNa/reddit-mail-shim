@@ -44,25 +44,48 @@ Pre-built APK users with Sync installed get direct forwarding. Users with other 
 
 ## Installation
 
-### Method 1: Direct APK Installation
+### Method 1: Direct Installation on Device
+
+1. Download `reddit-mail-shim-1.0-release.apk` from GitHub Releases to your Android device
+2. Open the APK file from your Downloads folder (or notification)
+3. Android will prompt "Install unknown app" or "Install blocked"
+4. Tap "Settings" and enable "Allow from this source" (browser/file manager)
+5. Return and tap "Install"
+6. Tap "Open" or proceed to Post-Installation Setup below
+
+Note: You may need to enable "Install unknown apps" permission for your browser or file manager in Settings > Apps > Special access > Install unknown apps.
+
+### Method 2: Installation via ADB
+
 ```bash
 adb install reddit-mail-shim-1.0-release.apk
 ```
 
-### Method 2: Build from Source
+Useful for developers or when installing from computer without file transfer.
+
+### Method 3: Build from Source
+
 ```bash
 git clone <repository-url>
 cd shim
 ./gradlew assembleRelease
-adb install app/build/outputs/apk/release/reddit-mail-shim-1.0-release.apk
+# Output: app/build/outputs/apk/release/reddit-mail-shim-1.0-release.apk
 ```
 
+Required if you use a Reddit client other than Sync (see Pre-Built APK Limitation section above). Edit `app/src/main/kotlin/com/Wffv9FNa/redditshim/Config.kt` line 4 before building to change target package.
+
+Install the built APK using Method 1 (transfer to device) or Method 2 (ADB).
+
 ### Post-Installation Setup
-1. Open any `click.redditmail.com` link (from Reddit digest email or manual ADB launch)
-2. Android will present app chooser dialog
+
+1. Open any `click.redditmail.com` link from Reddit digest email
+2. Android presents app chooser dialog
 3. Select "Reddit Mail Shim"
 4. Choose "Always" to set as default handler
-5. Shim will forward to Reddit client and disappear
+5. Shim resolves redirects and forwards to Reddit client
+6. Activity disappears immediately (will not appear in Recents)
+
+Test without email: `adb shell am start -a android.intent.action.VIEW -d "https://click.redditmail.com/CL0/https://www.reddit.com/r/Android/"`
 
 ## Configuration
 

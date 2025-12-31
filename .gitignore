@@ -6,6 +6,7 @@ gradle-app.setting
 
 # Local configuration files
 local.properties
+.claude/settings.local.json
 
 # Android Studio files
 .idea/
