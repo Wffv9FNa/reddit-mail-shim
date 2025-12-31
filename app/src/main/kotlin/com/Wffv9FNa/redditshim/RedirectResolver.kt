@@ -125,6 +125,8 @@ class RedirectResolver(private val client: OkHttpClient) {
             .method(if (useHead) "HEAD" else "GET", null)
             .build()
 
+        // Note: Kotlin compiler warns about "unreachable code" at line 128, but this is a false positive.
+        // The catch blocks below are reachable when exceptions are thrown.
         return try {
             client.newCall(request).execute().use { response ->
                 val code = response.code
