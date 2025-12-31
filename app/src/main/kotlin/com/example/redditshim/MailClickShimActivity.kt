@@ -138,8 +138,7 @@ class MailClickShimActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Clean up HTTP client resources
-        okHttpClient.dispatcher.executorService.shutdown()
-        okHttpClient.connectionPool.evictAll()
+        // OkHttpClient cleanup happens automatically
+        // No manual cleanup needed - resources will be released by GC
     }
 }
