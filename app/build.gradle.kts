@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.redditshim"
+    namespace = "com.Wffv9FNa.redditshim"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.redditshim"
+        applicationId = "com.Wffv9FNa.redditshim"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -40,6 +40,15 @@ android {
 
     buildFeatures {
         buildConfig = true
+    }
+
+    // Customize APK output names: reddit-mail-shim-{version}-{buildType}.apk
+    // Example: reddit-mail-shim-1.0-release.apk, reddit-mail-shim-1.0-debug.apk
+    applicationVariants.all {
+        outputs.all {
+            (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName =
+                "reddit-mail-shim-${defaultConfig.versionName}-${buildType.name}.apk"
+        }
     }
 }
 

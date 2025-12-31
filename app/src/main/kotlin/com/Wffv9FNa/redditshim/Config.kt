@@ -1,4 +1,4 @@
-package com.example.redditshim
+package com.Wffv9FNa.redditshim
 
 object Config {
     /**

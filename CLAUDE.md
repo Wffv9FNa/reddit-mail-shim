@@ -86,7 +86,7 @@ adb shell pm query-activities -a android.intent.action.VIEW -d "https://click.re
 ```
 
 **Manual testing:**
-1. Install APK: `adb install app-debug.apk`
+1. Install APK: `adb install app/build/outputs/apk/debug/reddit-mail-shim-1.0-debug.apk`
 2. Tap a tracking link in email (Gmail, etc.)
 3. Select shim and choose "Always"
 4. Verify it opens in Reddit client with correct content
@@ -101,8 +101,8 @@ adb shell pm query-activities -a android.intent.action.VIEW -d "https://click.re
 
 ### Build Outputs
 
-- **Debug APK**: For testing (`app-debug.apk`)
-- **Release APK**: Signed for daily use (`app-release.apk`)
+- **Debug APK**: For testing (`reddit-mail-shim-1.0-debug.apk`, 2.7 MB, app/build/outputs/apk/debug/)
+- **Release APK**: Signed for daily use (`reddit-mail-shim-1.0-release.apk`, 731 KB, app/build/outputs/apk/release/)
 
 ## Acceptance Criteria
 
