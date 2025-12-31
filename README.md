@@ -2,6 +2,30 @@
 
 Android intent filter shim that intercepts Reddit digest email tracking links (`click.redditmail.com`) and forwards users to their installed Reddit client using the final resolved URL after following HTTP redirects.
 
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [Technical Operation](#technical-operation)
+- [Requirements](#requirements)
+- [Pre-Built APK Limitation](#pre-built-apk-limitation)
+- [Installation](#installation)
+  - [Method 1: Direct Installation on Device](#method-1-direct-installation-on-device)
+  - [Method 2: Installation via ADB](#method-2-installation-via-adb)
+  - [Method 3: Build from Source](#method-3-build-from-source)
+  - [Post-Installation Setup](#post-installation-setup)
+- [Configuration](#configuration)
+- [Build Instructions](#build-instructions)
+  - [Release Signing Configuration](#release-signing-configuration)
+- [Testing](#testing)
+- [Privacy and Data Collection](#privacy-and-data-collection)
+- [Architecture](#architecture)
+- [Known Limitations](#known-limitations)
+- [Troubleshooting](#troubleshooting)
+- [Version History](#version-history)
+- [License](#license)
+- [Contributing](#contributing)
+- [Technical Support](#technical-support)
+
 ## Problem Statement
 
 Reddit digest emails contain tracking links like `https://click.redditmail.com/CL0/https://...` that route through a tracking server before redirecting to actual Reddit content. Tapping these links in email clients typically opens the browser, not your preferred Reddit app. This shim sits between the email client and the final destination, resolves all redirects, strips tracking parameters, and launches your Reddit client directly.
