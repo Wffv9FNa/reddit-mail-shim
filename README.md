@@ -30,7 +30,7 @@ Reddit digest emails contain tracking links like `https://click.redditmail.com/C
 **IMPORTANT:** Pre-built release APKs from GitHub are hardcoded to forward links to **Sync for Reddit** (`com.laurencedawson.reddit_sync`) only. This package name is compiled into the binary at build time (`Config.kt:4`).
 
 **If you use a different Reddit client:**
-1. You must build from source (see Method 2 below)
+1. You must build from source (see Method 3 below)
 2. Edit `app/src/main/kotlin/com/Wffv9FNa/redditshim/Config.kt` line 4 before building
 3. Change `TARGET_PACKAGE` to your client's package name (see Configuration section for common package names)
 
