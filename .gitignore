@@ -8,6 +8,7 @@ gradle-app.setting
 local.properties
 .claude/settings.local.json
 CLAUDE.md
+PRE_RELEASE_TODO.md
 
 # Android Studio files
 .idea/
