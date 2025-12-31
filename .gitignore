@@ -2,13 +2,10 @@
 .gradle/
 build/
 gradle-app.setting
-!gradle-wrapper.jar
-!gradle-wrapper.properties
 .gradletasknamecache
 
 # Local configuration files
 local.properties
-*.properties
 
 # Android Studio files
 .idea/

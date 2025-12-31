@@ -52,4 +52,7 @@ dependencies {
 
     // AndroidX core (minimal)
     implementation("androidx.core:core-ktx:1.12.0")
+
+    // AndroidX activity for ComponentActivity and lifecycleScope
+    implementation("androidx.activity:activity-ktx:1.8.0")
 }
